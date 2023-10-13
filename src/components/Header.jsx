@@ -9,8 +9,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 // import CloseIcon from '@mui/icons-material/CloseIcon';
 import CloseIcon from '@mui/icons-material/Close';
 import { Avatar, Button, Input } from '@mui/material';
-import Modal from 'react-responsive-modal'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Modal from 'react-responsive-modal'
 import "react-responsive-modal/styles.css"
 import "./css/Header.css"
 import PeopleAlt from '@mui/icons-material/PeopleAlt';
