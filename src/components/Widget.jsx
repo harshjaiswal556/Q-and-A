@@ -1,8 +1,16 @@
 import React from 'react'
-
+import WidgetContent from './WidgetContent'
+import "./css/Widget.css"
 function Widget() {
     return (
-        <div>Widget</div>
+        <div className="widget">
+            <div className="widget__header">
+                <h5>Sapce to follow</h5>
+            </div>
+            <div className="widget__contents">
+                <WidgetContent />
+            </div>
+        </div>
     )
 }
 
