@@ -19,4 +19,25 @@ router.post('/', async (req, res) => {
     }
 })
 
+router.get('/', async (req, res) => {
+    try {
+        await questionDB.aggregate([
+            {
+                $lookup: {
+                    from: "answers",
+                    localField: "_id",
+                    foreignField: "questionId",
+                    as: "allAnswer"
+                }
+            }
+        ]).exec().then((doc) => {
+            res.status(200).send(doc);
+        }).catch(err => {
+            res.status(500).send(err.message);
+        })
+    } catch (e) {
+        console.log(e);
+    }
+})
+
 module.exports = router;
