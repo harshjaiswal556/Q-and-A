@@ -14,10 +14,13 @@ import Modal from 'react-responsive-modal'
 import "react-responsive-modal/styles.css"
 import "./css/Header.css"
 import PeopleAlt from '@mui/icons-material/PeopleAlt';
+import axios from 'axios'
+
 function Header() {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [inputUrl, setInputUrl] = useState("");
+    const [question, setQuestion] = useState("");
     // const close = ()=>{
     //     set
     // }
@@ -30,6 +33,31 @@ function Header() {
     const modalToggleClose = () => {
         setIsModalOpen(false);
     }
+
+    const handleSubmit = async () => {
+        if (question !== "") {
+
+            const config = {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
+
+            const body = {
+                questionTitle: question,
+                questionUrl: inputUrl
+            }
+            await axios.post('/api/questions', body).then((res) => {
+                console.log(res.data);
+                alert("Question added");
+                window.location.href = "/"
+            }).catch((err) => {
+                console.log(err);
+                alert("Error");
+            })
+        }
+    }
+
     return (
         <div className="qHeader">
             <div className="qHeader-content">
@@ -65,7 +93,7 @@ function Header() {
                         </div>
                     </div>
                     <div className="modal__Field">
-                        <Input type='text' placeholder='Enter your question' />
+                        <Input type='text' onChange={(e) => setQuestion(e.target.value)} placeholder='Enter your question' />
                         <div style={{ display: 'flex', flexDirection: 'column' }} >
                             {/* <Input  /> */}
                             <input value={inputUrl} onChange={(e) => setInputUrl(e.target.value)} style={{ margin: "10px 0px", border: "1px solid lightgray", padding: "10px", outline: "1px solid black" }} type="text" placeholder="Optional: Add link that provide context" />
@@ -74,7 +102,7 @@ function Header() {
                     </div>
                     <div className="modal__buttons">
                         <button className='cancel' onClick={() => setIsModalOpen(false)}>Cancel</button>
-                        <button className='add' type='submit'>Add Question</button>
+                        <button className='add' onClick={handleSubmit} type='submit'>Add Question</button>
                     </div>
                 </Modal>
             </div>
